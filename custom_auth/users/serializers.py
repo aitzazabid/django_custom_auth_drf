@@ -1,7 +1,7 @@
 # write the serializer here
 from rest_framework import serializers
 
-from users.models import UserProfile
+from users.models import UserProfile,Post
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -19,4 +19,20 @@ class UserSerializer(serializers.ModelSerializer):
                   'phone_number',
                   'email',
 
+                  )
+
+
+class PostSerializer(serializers.ModelSerializer):
+    user = serializers.SerializerMethodField()
+
+    @staticmethod
+    def get_user(obj):
+        user = obj.user.email
+        return user
+
+    class Meta:
+        model = Post
+        fields = ('id',
+                  'posts',
+                  'user'
                   )

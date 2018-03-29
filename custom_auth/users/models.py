@@ -51,8 +51,12 @@ class User(AbstractUser):
     objects = UserManager()
 
 
-
 class UserProfile(models.Model):
     user = models.OneToOneField(User,related_name='users_profile')
     display_name = models.TextField()
     phone_number = models.IntegerField(null=True)
+
+
+class Post(models.Model):
+    user = models.ForeignKey(User,related_name='users_post')
+    posts = models.TextField(default='')
